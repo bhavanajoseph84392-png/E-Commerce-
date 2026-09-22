@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>BuyNest - Products</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+        }
+
+        .navbar {
+            height: 70px;
+            background: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 35px;
+
+            box-shadow: 0 2px 8px rgba(0,0,0,.1);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .add-btn {
+            text-decoration: none;
+
+            background: #222;
+            color: white;
+
+            padding: 11px 18px;
+
+            border-radius: 6px;
+        }
+
+        .container {
+            padding: 35px;
+        }
+
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .products {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fill, minmax(240px, 1fr));
+
+            gap: 25px;
+
+            margin-top: 25px;
+        }
+
+        .product-card {
+            background: white;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            box-shadow: 0 2px 10px rgba(0,0,0,.08);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+
+            object-fit: cover;
+        }
+
+        .no-image {
+            height: 220px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eee;
+
+            color: #777;
+        }
+
+        .product-info {
+            padding: 18px;
+        }
+
+        .product-name {
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .category {
+            color: #777;
+            margin-top: 7px;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .stock {
+            margin-top: 8px;
+        }
+
+        .view-btn {
+            display: inline-block;
+
+            margin-top: 15px;
+
+            text-decoration: none;
+
+            background: #222;
+            color: white;
+
+            padding: 9px 15px;
+
+            border-radius: 5px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<div class="navbar">
+
+    <div class="logo">
+        🛒 BuyNest
+    </div>
+
+    <a
+        class="add-btn"
+        href="{{ url_for('add_product') }}"
+    >
+        + Add Product
+    </a>
+
+</div>
+
+
+<div class="container">
+
+    <div class="title">
+
+        <h1>
+            Product Listing
+        </h1>
+
+    </div>
+
+
+    <div class="products">
+
+        {% for product in products %}
+
+        <div class="product-card">
+
+
+            {% if product.image %}
+
+            <img
+                src="{{ url_for(
+                    'static',
+                    filename='products/' + product.image
+                ) }}"
+                alt="{{ product.name }}"
+            >
+
+            {% else %}
+
+            <div class="no-image">
+                No Image
+            </div>
+
+            {% endif %}
+
+
+            <div class="product-info">
+
+                <div class="product-name">
+                    {{ product.name }}
+                </div>
+
+                <div class="category">
+                    {{ product.category }}
+                </div>
+
+                <div class="price">
+                    ₹{{ product.price }}
+                </div>
+
+                <div class="stock">
+                    Stock: {{ product.stock }}
+                </div>
+
+
+                <a
+                    class="view-btn"
+                    href="{{ url_for(
+                        'product_view',
+                        product_id=product.product_id
+                    ) }}"
+                >
+                    View Product
+                </a>
+
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <p>
+            No products available.
+        </p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
