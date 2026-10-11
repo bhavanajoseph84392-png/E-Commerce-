@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BuyNest</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body{font-family:Arial,sans-serif;background:#f4f6f8;margin:0;color:#222}
+        nav{background:#111827;color:white;padding:15px 5%;display:flex;gap:20px;align-items:center}
+        nav a{color:white;text-decoration:none}
+        .container{width:90%;max-width:1200px;margin:30px auto}
+        .card{background:white;padding:25px;border-radius:12px;box-shadow:0 3px 15px #0001;margin-bottom:20px}
+        input,select,textarea{width:100%;padding:11px;margin:7px 0 15px;border:1px solid #ddd;border-radius:7px;box-sizing:border-box}
+        button,.btn{background:#111827;color:white;border:0;padding:10px 16px;border-radius:7px;cursor:pointer;text-decoration:none;display:inline-block}
+        .danger{background:#dc2626}
+        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+        .product img{width:100%;height:200px;object-fit:contain;border-radius:8px;background:#f8fafc}
+        .price{font-size:20px;font-weight:bold}
+        table{width:100%;border-collapse:collapse;background:white}
+        th,td{padding:12px;border-bottom:1px solid #eee;text-align:left}
+        .actions{display:flex;gap:8px;flex-wrap:wrap}
+    </style>
+</head>
+<title>BuyNest - Products</title></head><body>
+<nav>
+<b>BuyNest</b>
+<a href="/user/dashboard">Products</a>
+<a href="/user/cart">Cart ({{ cart_count }})</a>
+<a href="/user/orders">Orders</a>
+<a href="/user/profile">Profile</a>
+<a href="/user/logout">Logout</a>
+</nav>
+<div class="container">
+<div class="card">
+<h2>Welcome, {{ user_name }}</h2>
+<form method="GET">
+<input name="search" value="{{ search }}" placeholder="Search products...">
+<select name="category">
+<option value="">All Categories</option>
+{% for c in categories %}
+<option value="{{ c.category }}" {% if selected_category == c.category %}selected{% endif %}>{{ c.category }}</option>
+{% endfor %}
+</select>
+<button>Search</button>
+</form>
+</div>
+
+<div class="grid">
+{% for product in products %}
+<div class="card product">
+{% if product.image %}
+<img src="{{ url_for('static', filename='products/' + product.image) }}">
+{% endif %}
+<h3>{{ product.name }}</h3>
+<p>{{ product.description }}</p>
+<p class="price">₹{{ product.price }}</p>
+<p>Stock: {{ product.stock }}</p>
+<div class="actions">
+<a class="btn" href="{{ url_for('user_product_view', product_id=product.product_id) }}">View</a>
+{% if product.stock > 0 %}
+<form method="POST" action="{{ url_for('add_to_cart', product_id=product.product_id) }}">
+<input type="hidden" name="quantity" value="1">
+<button>Add to Cart</button>
+</form>
+{% endif %}
+</div>
+</div>
+{% else %}
+<p>No products found.</p>
+{% endfor %}
+</div>
+</div>
+</body></html>

@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BuyNest</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body{font-family:Arial,sans-serif;background:#f4f6f8;margin:0;color:#222}
+        nav{background:#111827;color:white;padding:15px 5%;display:flex;gap:20px;align-items:center}
+        nav a{color:white;text-decoration:none}
+        .container{width:90%;max-width:1200px;margin:30px auto}
+        .card{background:white;padding:25px;border-radius:12px;box-shadow:0 3px 15px #0001;margin-bottom:20px}
+        input,select,textarea{width:100%;padding:11px;margin:7px 0 15px;border:1px solid #ddd;border-radius:7px;box-sizing:border-box}
+        button,.btn{background:#111827;color:white;border:0;padding:10px 16px;border-radius:7px;cursor:pointer;text-decoration:none;display:inline-block}
+        .danger{background:#dc2626}
+        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+        .product img{width:100%;height:200px;object-fit:contain;border-radius:8px;background:#f8fafc}
+        .price{font-size:20px;font-weight:bold}
+        table{width:100%;border-collapse:collapse;background:white}
+        th,td{padding:12px;border-bottom:1px solid #eee;text-align:left}
+        .actions{display:flex;gap:8px;flex-wrap:wrap}
+    </style>
+</head>
+<title>BuyNest - Cart</title></head><body>
+<nav><b>BuyNest</b><a href="/user/dashboard">Products</a><a href="/user/orders">Orders</a><a href="/user/profile">Profile</a><a href="/user/logout">Logout</a></nav>
+<div class="container"><div class="card">
+<h2>Shopping Cart</h2>
+{% if cart_items %}
+<table>
+<tr><th>Product</th><th>Price</th><th>Quantity</th><th>Subtotal</th><th>Action</th></tr>
+{% for item in cart_items %}
+<tr>
+<td>{{ item.name }}</td><td>₹{{ item.price }}</td>
+<td>
+<form method="POST" action="{{ url_for('update_cart', cart_id=item.cart_id) }}">
+<input style="width:80px" type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.stock }}">
+<button>Update</button>
+</form>
+</td>
+<td>₹{{ item.subtotal }}</td>
+<td>
+<form method="POST" action="{{ url_for('remove_from_cart', cart_id=item.cart_id) }}">
+<button class="danger">Remove</button>
+</form>
+</td>
+</tr>
+{% endfor %}
+</table>
+<h2>Total: ₹{{ total }}</h2>
+<a class="btn" href="/user/checkout">Proceed to Checkout</a>
+{% else %}<p>Your cart is empty.</p>{% endif %}
+</div></div>
+</body></html>
