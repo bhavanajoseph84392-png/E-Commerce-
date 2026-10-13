@@ -1,5 +1,14 @@
 # Application Architecture
 
+[![Documentation](https://img.shields.io/badge/Full%20Documentation-PDF%20View-red?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://github.com/bhavanajoseph84392-png/E-Commerce-/blob/main/E-Commerce_Admin_Management_System_Documentation.pdf)
+[![Direct Download](https://img.shields.io/badge/Download%20Documentation-PDF-brightgreen?style=for-the-badge&logo=googledrive&logoColor=white)](https://github.com/bhavanajoseph84392-png/E-Commerce-/raw/main/E-Commerce_Admin_Management_System_Documentation.pdf)
+[![Main README](https://img.shields.io/badge/Project-README-blue?style=for-the-badge&logo=markdown)](./README.md)
+
+> 📄 **Looking for the complete project documentation report?**
+> - [👉 Open Full 18-Page Project Documentation (PDF)](https://github.com/bhavanajoseph84392-png/E-Commerce-/blob/main/E-Commerce_Admin_Management_System_Documentation.pdf)
+> - [📥 Download PDF File Directly](https://github.com/bhavanajoseph84392-png/E-Commerce-/raw/main/E-Commerce_Admin_Management_System_Documentation.pdf)
+> - [📖 View Main Project Guide (README.md)](./README.md)
+
 This document describes the existing architecture of the E-Commerce Admin Application.
 
 ## 1. Folder Structure
